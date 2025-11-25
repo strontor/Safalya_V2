@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "92731737604",
+    "project_id": "safalya-v2",
+    "storage_bucket": "safalya-v2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92731737604:android:e7fe7be7350819aa8a9751",
+        "android_client_info": {
+          "package_name": "com.beta.safalya_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYS__SJseMnLSa4Ob__gBIOT8mQf92If4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.beta.safalya_v2.ui.home.HomeFragment"
+        android:label="@string/nav_home">
+        <action
+            android:id="@+id/action_homeFragment_to_createListingFragment"
+            app:destination="@id/createListingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_browseListingsFragment"
+            app:destination="@id/browseListingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listingDetailsFragment"
+            app:destination="@id/listingDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contractsFragment"
+        android:name="com.beta.safalya_v2.ui.contracts.ContractsFragment"
+        android:label="@string/nav_contracts" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.beta.safalya_v2.ui.profile.ProfileFragment"
+        android:label="@string/nav_profile" />
+
+    <fragment
+        android:id="@+id/createListingFragment"
+        android:name="com.beta.safalya_v2.ui.home.CreateListingFragment"
+        android:label="@string/title_create_listing" />
+
+    <fragment
+        android:id="@+id/browseListingsFragment"
+        android:name="com.beta.safalya_v2.ui.home.BrowseListingsFragment"
+        android:label="@string/title_browse_listings">
+        <action
+            android:id="@+id/action_browseListingsFragment_to_listingDetailsFragment"
+            app:destination="@id/listingDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listingDetailsFragment"
+        android:name="com.beta.safalya_v2.ui.home.ListingDetailsFragment"
+        android:label="@string/title_listing_details">
+        <argument
+            android:name="listingId"
+            app:argType="string" />
+    </fragment>
+</navigation>
+
