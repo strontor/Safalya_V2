@@ -8,5 +8,9 @@
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
     </style>
 </resources>

@@ -29,7 +29,7 @@
 
         <!-- OPTIONAL: LoginActivity (not launcher) -->
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".auth.AuthActivity"
             android:exported="false"
             android:label="@string/title_activity_login" />
 

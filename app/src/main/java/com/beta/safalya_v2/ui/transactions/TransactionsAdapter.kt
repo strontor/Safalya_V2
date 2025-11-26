@@ -1,4 +1,4 @@
-package com.beta.safalya_v2.ui.adapters
+package com.beta.safalya_v2.ui.transactions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
