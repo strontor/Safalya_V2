@@ -41,47 +41,32 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         binding.loginButton.setOnClickListener { handleLogin() }
-        observeState()
+
     }
 
     private fun handleLogin() {
         val email = binding.emailInput.text.toString().trim()
         val password = binding.passwordInput.text.toString().trim()
+
         if (email.isEmpty() || password.isEmpty()) {
             showToast(getString(R.string.error_credentials_required))
             return
         }
-        viewModel.login(email, password)
-    }
 
-    private fun observeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loginState.collect { state ->
-                    when (state) {
-                        is UiState.Idle -> binding.progressBar.setVisible(false)
-                        is UiState.Loading -> binding.progressBar.setVisible(true)
-                        is UiState.Success -> {
-                            binding.progressBar.setVisible(false)
-                            launchActivity<MainActivity> {
-                                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                            }
-                            viewModel.resetLoginState()
-                            requireActivity().finish()
-                        }
-                        is UiState.Error -> {
-                            binding.progressBar.setVisible(false)
-                            showToast(state.message.ifEmpty { getString(R.string.error_generic) })
-                        }
-                    }
-                }
+        viewModel.login(email, password) {
+            // called when login + role successfully loaded
+            launchActivity<MainActivity> {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             }
+            requireActivity().finish()
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+
 

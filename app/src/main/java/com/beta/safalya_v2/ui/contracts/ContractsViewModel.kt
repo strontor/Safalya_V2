@@ -12,50 +12,58 @@ class ContractsViewModel : ViewModel() {
     val contracts = MutableLiveData<List<Contract>>(emptyList())
     val loading = MutableLiveData(false)
     val error = MutableLiveData<String?>(null)
-    val actionState = MutableLiveData<Boolean>(false)
 
+    // Whether accept/reject is in progress
+    val actionLoading = MutableLiveData(false)
+
+    /**
+     * Load contracts depending on user type.
+     * For MVP we do NOT use userId here. Only isFarmer matters.
+     */
     fun loadContracts(isFarmer: Boolean) {
         loading.value = true
 
         repo.loadContracts(
-            isFarmer,
-            { list ->
+            isFarmer = isFarmer,
+            onSuccess = { list ->
                 contracts.value = list
                 loading.value = false
             },
-            { err ->
+            onFailure = { err ->
                 loading.value = false
                 error.value = err
             }
         )
     }
 
+    /** Accept Contract **/
     fun acceptContract(contract: Contract) {
-        actionState.value = true
+        actionLoading.value = true
 
         repo.acceptContract(
-            contract,
-            {
-                actionState.value = false
+            contract = contract,
+            onSuccess = {
+                actionLoading.value = false
             },
-            {
-                actionState.value = false
-                error.value = it
+            onFailure = { err ->
+                actionLoading.value = false
+                error.value = err
             }
         )
     }
 
+    /** Reject Contract **/
     fun rejectContract(contract: Contract) {
-        actionState.value = true
+        actionLoading.value = true
 
         repo.rejectContract(
-            contract,
-            {
-                actionState.value = false
+            contract = contract,
+            onSuccess = {
+                actionLoading.value = false
             },
-            {
-                actionState.value = false
-                error.value = it
+            onFailure = { err ->
+                actionLoading.value = false
+                error.value = err
             }
         )
     }

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeFragment">
+    android:name="androidx.navigation.NavGraph"
+    app:startDestination="@id/fallbackFragment">
+    <fragment
+        android:id="@+id/fallbackFragment"
+        android:name="com.beta.safalya_v2.ui.EmptyFragment"
+        android:label="Loading" />
 
     <fragment
         android:id="@+id/homeFragment"
@@ -18,6 +24,16 @@
             android:id="@+id/action_homeFragment_to_listingDetailsFragment"
             app:destination="@id/listingDetailsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/farmerHomeFragment"
+        android:name="com.beta.safalya_v2.ui.home.FarmerHomeFragment"
+        android:label="Farmer Home" />
+
+    <fragment
+        android:id="@+id/buyerHomeFragment"
+        android:name="com.beta.safalya_v2.ui.home.BuyerHomeFragment"
+        android:label="Buyer Home" />
 
     <fragment
         android:id="@+id/contractsFragment"
@@ -38,9 +54,11 @@
         android:id="@+id/browseListingsFragment"
         android:name="com.beta.safalya_v2.ui.home.BrowseListingsFragment"
         android:label="@string/title_browse_listings">
+
         <action
             android:id="@+id/action_browseListingsFragment_to_listingDetailsFragment"
             app:destination="@id/listingDetailsFragment" />
+
     </fragment>
 
     <fragment

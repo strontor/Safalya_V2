@@ -9,6 +9,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <RadioGroup
+            android:id="@+id/roleGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioFarmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Farmer"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radioBuyer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buyer" />
+
+        </RadioGroup>
+
 
         <TextView
             android:layout_width="wrap_content"

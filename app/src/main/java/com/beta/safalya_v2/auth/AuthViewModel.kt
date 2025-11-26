@@ -1,12 +1,12 @@
-// src/main/java/com/yourpackagename/viewmodel/AuthViewModel.kt
-package com.safalya_v2.viewmodel
+package com.beta.safalya_v2.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yourpackagename.repo.AuthRepository
+import com.beta.safalya_v2.data.repository.AuthRepository
 
 class AuthViewModel : ViewModel() {
+
     private val repo = AuthRepository()
 
     private val _loading = MutableLiveData(false)
@@ -18,41 +18,64 @@ class AuthViewModel : ViewModel() {
     private val _userRole = MutableLiveData<String?>()
     val userRole: LiveData<String?> = _userRole
 
-    fun register(email: String, pass: String, name: String, role: String, phone: String, onSuccess: () -> Unit) {
+    /** REGISTER USER **/
+    fun register(
+        name: String,
+        phone: String,
+        email: String,
+        pass: String,
+        role: String,
+        onSuccess: () -> Unit
+    ) {
         _loading.value = true
-        repo.register(email, pass, name, role, phone,
-            onSuccess = { uid ->
+
+        repo.register(
+            name = name,
+            email = email,
+            password = pass,
+            phone = phone,
+            role = role,
+            onSuccess = {
                 _loading.value = false
                 onSuccess()
             },
-            onError = { err ->
+            onFailure = { err ->
                 _loading.value = false
                 _error.value = err
-            })
+            }
+        )
     }
 
+    /** LOGIN USER **/
     fun login(email: String, pass: String, onSuccess: () -> Unit) {
         _loading.value = true
-        repo.login(email, pass,
+
+        repo.login(
+            email = email,
+            password = pass,
             onSuccess = { uid ->
-                // fetch user to get role
-                repo.fetchUser(uid,
-                    onSuccess = { data ->
+
+                repo.fetchUserRole(
+                    uid = uid,
+                    onSuccess = { role ->
                         _loading.value = false
-                        val role = data["role"] as? String
                         _userRole.value = role
                         onSuccess()
                     },
-                    onError = { e ->
+                    onFailure = { err ->
                         _loading.value = false
-                        _error.value = e
-                    })
+                        _error.value = err
+                    }
+                )
             },
-            onError = { e ->
+            onFailure = { err ->
                 _loading.value = false
-                _error.value = e
-            })
+                _error.value = err
+            }
+        )
     }
 
-    fun clearError() { _error.value = null }
+    fun clearError() {
+        _error.value = null
+    }
 }

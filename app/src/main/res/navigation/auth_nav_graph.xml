@@ -17,14 +17,8 @@
         android:id="@+id/registerFragment"
         android:name="com.beta.safalya_v2.auth.RegisterFragment"
         android:label="@string/title_register">
-        <action
-            android:id="@+id/action_registerFragment_to_roleSelectionFragment"
-            app:destination="@id/roleSelectionFragment" />
+
     </fragment>
 
-    <fragment
-        android:id="@+id/roleSelectionFragment"
-        android:name="com.beta.safalya_v2.auth.RoleSelectionFragment"
-        android:label="@string/title_select_role" />
 </navigation>
 

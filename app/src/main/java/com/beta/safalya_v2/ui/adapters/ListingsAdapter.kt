@@ -41,4 +41,3 @@ class ListingsAdapter(
             oldItem == newItem
     }
 }
-

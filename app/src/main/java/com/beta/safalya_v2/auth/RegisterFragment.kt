@@ -1,6 +1,8 @@
 package com.beta.safalya_v2.auth
 
 import android.os.Bundle
+import com.beta.safalya_v2.MainActivity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +40,7 @@ class RegisterFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.registerButton.setOnClickListener { validateInputs() }
-        observeState()
+
     }
 
     private fun validateInputs() {
@@ -46,34 +48,23 @@ class RegisterFragment : Fragment() {
         val phone = binding.phoneInput.text.toString().trim()
         val email = binding.emailInput.text.toString().trim()
         val password = binding.passwordInput.text.toString().trim()
+
         if (name.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty()) {
             showToast(getString(R.string.error_all_fields_required))
             return
         }
-        viewModel.register(name, phone, email, password)
-    }
 
-    private fun observeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.registerState.collect { state ->
-                    when (state) {
-                        is UiState.Idle -> binding.progressBar.setVisible(false)
-                        is UiState.Loading -> binding.progressBar.setVisible(true)
-                        is UiState.Success -> {
-                            binding.progressBar.setVisible(false)
-                            findNavController().navigate(R.id.action_registerFragment_to_roleSelectionFragment)
-                            viewModel.resetRegisterState()
-                        }
-                        is UiState.Error -> {
-                            binding.progressBar.setVisible(false)
-                            showToast(state.message.ifEmpty { getString(R.string.error_generic) })
-                        }
-                    }
-                }
-            }
+        // read selected role from UI
+        val role = if (binding.radioFarmer.isChecked) "farmer" else "buyer"
+
+        viewModel.register(name, phone, email, password, role) {
+            // registration completed → go straight to MainActivity
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
