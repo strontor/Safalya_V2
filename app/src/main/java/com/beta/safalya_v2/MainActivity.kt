@@ -90,3 +90,6 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 }
+
+
+//checking Version control issues with commit and push directly thru Android Studio
