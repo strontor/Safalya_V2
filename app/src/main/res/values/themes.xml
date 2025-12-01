@@ -6,7 +6,7 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/secondary</item>
         <item name="android:statusBarColor">@color/primary</item>
-        <item name="android:navigationBarColor">@color/white</item>
+<!--        <item name="android:navigationBarColor">@color/white</item>-->
         <item name="android:windowBackground">@color/background</item>
         <item name="android:fontFamily">@font/inter</item>
         <item name="android:windowLightStatusBar">true</item>
