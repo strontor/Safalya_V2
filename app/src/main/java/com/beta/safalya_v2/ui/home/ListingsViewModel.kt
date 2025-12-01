@@ -71,4 +71,25 @@ class ListingsViewModel : ViewModel() {
             }
         )
     }
+    fun requestContract(
+        listingId: String,
+        farmerId: String,
+        onDone: () -> Unit
+    ) {
+        loading.value = true
+
+        repo.requestContract(
+            listingId,
+            farmerId,
+            {
+                loading.value = false
+                onDone()
+            },
+            {
+                loading.value = false
+                error.value = it
+            }
+        )
+    }
+
 }

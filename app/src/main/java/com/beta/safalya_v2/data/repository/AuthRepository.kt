@@ -73,4 +73,7 @@ class AuthRepository {
                 onFailure(e.message ?: "Failed to fetch user role")
             }
     }
+    fun logout() {
+        auth.signOut()
+    }
 }

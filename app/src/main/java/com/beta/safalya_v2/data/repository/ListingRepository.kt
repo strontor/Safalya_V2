@@ -96,4 +96,29 @@ class ListingRepository {
             }
             .addOnFailureListener { e -> onFailure(e.message ?: "Failed to fetch") }
     }
+    // -----------------------
+// REQUEST CONTRACT
+// -----------------------
+    fun requestContract(
+        listingId: String,
+        farmerId: String,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val buyerId = auth.currentUser?.uid ?: return onFailure("User not logged in")
+
+        val data = hashMapOf(
+            "listingId" to listingId,
+            "farmerId" to farmerId,
+            "buyerId" to buyerId,
+            "timestamp" to System.currentTimeMillis(),
+            "status" to "pending"
+        )
+
+        db.collection("contract_requests")
+            .add(data)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { e -> onFailure(e.message ?: "Request failed") }
+    }
+
 }

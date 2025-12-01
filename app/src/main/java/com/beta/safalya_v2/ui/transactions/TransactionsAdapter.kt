@@ -9,17 +9,13 @@ import com.beta.safalya_v2.databinding.ItemTransactionBinding
 class TransactionsAdapter(private val list: List<Transaction>) :
     RecyclerView.Adapter<TransactionsAdapter.TViewHolder>() {
 
-    inner class TViewHolder(val binding: ItemTransactionBinding) :
+    class TViewHolder(val binding: ItemTransactionBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TViewHolder {
-        return TViewHolder(
-            ItemTransactionBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemTransactionBinding.inflate(inflater, parent, false)
+        return TViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TViewHolder, position: Int) {

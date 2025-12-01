@@ -14,37 +14,60 @@ class ListingDetailsFragment : Fragment() {
     private lateinit var binding: FragmentListingDetailsBinding
     private val vm: ListingsViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentListingDetailsBinding.inflate(inflater, container, false)
 
         val listingId = arguments?.getString("listingId") ?: ""
         val farmerId = arguments?.getString("farmerId") ?: ""
 
-        binding.btnRequestContract.setOnClickListener {
+        // -------- REQUEST CONTRACT BUTTON ----------
+        binding.requestButton.setOnClickListener {
             vm.requestContract(listingId, farmerId) {
                 Toast.makeText(requireContext(), "Request sent!", Toast.LENGTH_SHORT).show()
-                requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
 
-        binding.tvCrop.text = arguments?.getString("crop")
-        binding.tvQuantity.text = arguments?.getString("qty")
-        binding.tvPrice.text = arguments?.getString("price")
-        binding.tvDescription.text = arguments?.getString("desc")
+        // --------- SET UI DATA FROM ARGUMENTS ----------
+        binding.cropValue.text = arguments?.getString("crop")
+        binding.quantityValue.text = arguments?.getString("qty")
+        binding.priceValue.text = arguments?.getString("price")
+        binding.dateValue.text = arguments?.getString("date")
+        binding.descriptionValue.text = arguments?.getString("desc")
+
+        // Toolbar back button
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
 
         return binding.root
     }
 
     companion object {
-        fun newInstance(id: String, farmerId: String, crop: String, qty: String, price: String, desc: String): ListingDetailsFragment {
+        fun newInstance(
+            id: String,
+            farmerId: String,
+            crop: String,
+            qty: String,
+            price: String,
+            date: String,
+            desc: String
+        ): ListingDetailsFragment {
             val f = ListingDetailsFragment()
             val b = Bundle()
+
             b.putString("listingId", id)
             b.putString("farmerId", farmerId)
             b.putString("crop", crop)
             b.putString("qty", qty)
             b.putString("price", price)
+            b.putString("date", date)
             b.putString("desc", desc)
+
             f.arguments = b
             return f
         }

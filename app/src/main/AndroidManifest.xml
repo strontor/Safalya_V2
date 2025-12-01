@@ -28,10 +28,10 @@
         </activity>
 
         <!-- OPTIONAL: LoginActivity (not launcher) -->
-        <activity
-            android:name=".auth.AuthActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
+<!--        <activity-->
+<!--            android:name=".auth.AuthActivity"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_login" />-->
 
         <!-- MAIN APP ACTIVITY (NO LAUNCHER TAG) -->
         <activity

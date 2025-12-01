@@ -1,5 +1,5 @@
-//package com.beta.safalya_v2.auth
-//
+package com.beta.safalya_v2.ui.auth
+
 //import androidx.lifecycle.MutableLiveData
 //import androidx.lifecycle.ViewModel
 //import com.beta.safalya_v2.data.repository.AuthRepository

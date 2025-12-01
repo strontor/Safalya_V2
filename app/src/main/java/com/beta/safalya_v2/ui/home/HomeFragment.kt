@@ -77,40 +77,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeUser() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                sharedViewModel.userState.collect { state ->
-                    if (state is UiState.Success) {
-                        val user = state.data
-                        isFarmer = user.role == "farmer"
-                        currentUserId = user.id
-                        binding.welcomeMessage.text = getString(R.string.home_welcome, user.name)
-                        configurePrimaryButton()
-                        fetchListings()
-                    }
-                }
-            }
-        }
+
     }
 
     private fun observeListings() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                listingsViewModel.listingsState.collect { state ->
-                    when (state) {
-                        is UiState.Idle -> binding.progressBar.setVisible(false)
-                        is UiState.Loading -> binding.progressBar.setVisible(true)
-                        is UiState.Success -> {
-                            binding.progressBar.setVisible(false)
-                            renderListings(state.data)
-                        }
-                        is UiState.Error -> {
-                            binding.progressBar.setVisible(false)
-                            showToast(state.message)
-                        }
-                    }
-                }
-            }
+        listingsViewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.setVisible(isLoading)
+        }
+
+        listingsViewModel.error.observe(viewLifecycleOwner) { message ->
+            message?.let { showToast(it) }
+        }
+
+        listingsViewModel.myListings.observe(viewLifecycleOwner) { list ->
+            if (isFarmer) renderListings(list)
+        }
+
+        listingsViewModel.activeListings.observe(viewLifecycleOwner) { list ->
+            if (!isFarmer) renderListings(list)
         }
     }
 
@@ -124,7 +108,7 @@ class HomeFragment : Fragment() {
 
     private fun fetchListings() {
         if (isFarmer) {
-            listingsViewModel.loadFarmerListings(currentUserId)
+            listingsViewModel.loadMyListings()
         } else {
             listingsViewModel.loadActiveListings()
         }

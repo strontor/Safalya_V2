@@ -1,4 +1,4 @@
-//package com.beta.safalya_v2.auth
+package com.beta.safalya_v2.ui.auth
 //
 //import android.content.Intent
 //import android.os.Bundle

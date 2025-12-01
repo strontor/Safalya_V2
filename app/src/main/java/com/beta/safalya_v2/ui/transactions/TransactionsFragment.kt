@@ -10,7 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beta.safalya_v2.databinding.FragmentTransactionsBinding
 import com.beta.safalya_v2.main.MainSharedViewModel
-import com.beta.safalya_v2.ui.adapters.TransactionsAdapter
+import com.beta.safalya_v2.util.UiState
+
 
 class TransactionsFragment : Fragment() {
 
@@ -18,13 +19,21 @@ class TransactionsFragment : Fragment() {
     private val vm: TransactionsViewModel by viewModels()
     private val mainVM: MainSharedViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentTransactionsBinding.inflate(inflater, container, false)
 
         mainVM.userState.value?.let { state ->
-            val isFarmer = state.data.role == "farmer"
-            vm.loadTransactions(isFarmer)
+            if (state is UiState.Success) {
+                val user = state.data
+                val isFarmer = user.role == "farmer"
+                vm.loadTransactions(isFarmer)
+            }
         }
+
 
         vm.transactions.observe(viewLifecycleOwner) { list ->
             binding.recyclerView.apply {
