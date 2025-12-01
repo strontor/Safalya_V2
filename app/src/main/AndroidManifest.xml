@@ -18,7 +18,7 @@
 
         <!-- AUTH ACTIVITY → MUST BE LAUNCHER -->
         <activity
-            android:name=".auth.AuthActivity"
+            android:name=".ui.auth.AuthActivity"
             android:exported="true"
             android:theme="@style/Theme.Safalya_V2">
             <intent-filter>

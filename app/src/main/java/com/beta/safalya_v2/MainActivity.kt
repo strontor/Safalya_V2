@@ -10,12 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.beta.safalya_v2.auth.AuthActivity
+import com.beta.safalya_v2.ui.auth.AuthActivity
 import com.beta.safalya_v2.databinding.ActivityMainBinding
 import com.beta.safalya_v2.main.MainSharedViewModel
 import com.beta.safalya_v2.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,6 +91,3 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 }
-
-
-//checking Version control issues with commit and push directly thru Android Studio
