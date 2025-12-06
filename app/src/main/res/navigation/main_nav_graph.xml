@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
     android:name="androidx.navigation.NavGraph"
-    app:startDestination="@id/fallbackFragment">
+    app:startDestination="@id/homeFragment"
+    >
     <fragment
         android:id="@+id/fallbackFragment"
         android:name="com.beta.safalya_v2.ui.EmptyFragment"
