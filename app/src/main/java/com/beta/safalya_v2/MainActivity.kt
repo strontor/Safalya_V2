@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
                         // Get navHost + navController
                         val navHostFragment =
                             supportFragmentManager.findFragmentById(R.id.main_nav_host) as NavHostFragment
+
+
                         val navController = navHostFragment.navController
 
                         // Dynamically set home based on role
