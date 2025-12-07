@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_nav_host"
         android:layout_width="0dp"

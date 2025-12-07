@@ -16,6 +16,11 @@ import com.beta.safalya_v2.main.MainSharedViewModel
 import com.beta.safalya_v2.util.UiState
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import android.view.ViewGroup
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +39,26 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //correction for padding
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val root = findViewById<ViewGroup>(android.R.id.content).getChildAt(0)
+
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            view.setPadding(
+                view.paddingLeft,
+                bars.top,        // status bar safe padding
+                view.paddingRight,
+                bars.bottom      // navigation bar safe padding
+            )
+
+            WindowInsetsCompat.CONSUMED
+        }
+
+
+
 
         // Load user from Firestore
         sharedViewModel.loadCurrentUser()
