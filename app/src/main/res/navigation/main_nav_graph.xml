@@ -27,16 +27,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/farmerHomeFragment"
-        android:name="com.beta.safalya_v2.ui.home.FarmerHomeFragment"
-        android:label="Farmer Home" />
-
-    <fragment
-        android:id="@+id/buyerHomeFragment"
-        android:name="com.beta.safalya_v2.ui.home.BuyerHomeFragment"
-        android:label="Buyer Home" />
-
-    <fragment
         android:id="@+id/contractsFragment"
         android:name="com.beta.safalya_v2.ui.contracts.ContractsFragment"
         android:label="@string/nav_contracts" />

@@ -98,7 +98,9 @@ class HomeFragment : Fragment() {
         }
 
         listingsViewModel.myListings.observe(viewLifecycleOwner) { list ->
-            if (isFarmer) renderListings(list)
+            binding.homePrimaryAction.text =
+                if (isFarmer) "Create Listing" else "Browse Listings"
+
         }
 
         listingsViewModel.activeListings.observe(viewLifecycleOwner) { list ->

@@ -88,13 +88,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-                        graph.setStartDestination(
-                            if (role == "farmer") R.id.farmerHomeFragment
-                            else R.id.buyerHomeFragment
-                        )
-
-
+                        graph.setStartDestination(R.id.homeFragment)
                         navController.graph = graph
+
 
                         // Now set up bottom nav AFTER graph is set
                         binding.bottomNav.setupWithNavController(navController)
