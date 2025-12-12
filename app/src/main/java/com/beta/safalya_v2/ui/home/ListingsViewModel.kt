@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.beta.safalya_v2.data.model.Listing
 import com.beta.safalya_v2.data.repository.ListingRepository
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class ListingsViewModel : ViewModel() {
 
@@ -19,7 +20,7 @@ class ListingsViewModel : ViewModel() {
         cropType: String,
         quantity: String,
         price: String,
-        deliveryDate: String,
+        deliveryDate: Long,
         description: String,
         onDone: () -> Unit
     ) {
@@ -29,7 +30,7 @@ class ListingsViewModel : ViewModel() {
             cropType,
             quantity,
             price,
-            deliveryDate,
+            deliveryDate.toString(),
             description,
             {
                 loading.value = false

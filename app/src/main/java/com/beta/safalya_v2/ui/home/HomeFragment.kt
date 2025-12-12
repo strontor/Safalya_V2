@@ -58,7 +58,15 @@ class HomeFragment : Fragment() {
 
     private fun setupRecycler() {
         adapter = ListingsAdapter { listing ->
-            val args = bundleOf("listingId" to listing.id)
+            val args = bundleOf(
+                "listingId" to listing.id,
+                "farmerId" to listing.farmerId,
+                "crop" to listing.cropType,
+                "qty" to listing.quantity,
+                "price" to listing.price,
+                "date" to listing.deliveryDate,
+                "desc" to listing.description
+            )
             findNavController().navigate(R.id.action_homeFragment_to_listingDetailsFragment, args)
         }
         binding.listingsRecycler.layoutManager = LinearLayoutManager(requireContext())
