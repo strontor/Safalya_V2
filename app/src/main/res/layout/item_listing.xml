@@ -1,60 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginTop="12dp"
-    android:layout_marginBottom="4dp"
-    android:padding="16dp"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
     app:strokeWidth="1dp"
-    app:strokeColor="@android:color/darker_gray">
+    app:strokeColor="#E0E0E0"
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="?attr/background">
+        android:padding="16dp">
 
-        <!-- Crop Name -->
+        <!-- 🌾 Crop name (hero) -->
         <TextView
-            android:id="@+id/crop_type"
+            android:id="@+id/tvCrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            android:textColor="@color/primary"
+            android:text="Rice"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textSize="18sp"
-            tools:text="Wheat" />
+            android:textColor="@color/text_primary"/>
 
-        <!-- Quantity -->
+        <!-- 📦 Quantity -->
         <TextView
-            android:id="@+id/quantity"
+            android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="#555555"
-            android:textSize="15sp"
-            tools:text="500 kg" />
+            android:text="200 kg"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="4dp"/>
 
-        <!-- Price -->
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
+        <!-- 💰 Price row -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:textSize="16sp"
-            tools:text="₹2000/quintal" />
+            android:orientation="horizontal"
+            android:layout_marginTop="14dp"
+            android:gravity="">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"/>
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹15,000"
+                android:textColor="@color/primary"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
 
