@@ -23,5 +23,7 @@ class AuthActivity : AppCompatActivity() {
 
         val navController = navHost.navController
         binding.authToolbar.setupWithNavController(navController)
+        binding.authToolbar.title = ""
+
     }
 }

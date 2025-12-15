@@ -6,11 +6,10 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.beta.safalya_v2.auth.LoginFragment"
-        android:label="@string/title_login">
+        android:name="com.beta.safalya_v2.auth.LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"/>
     </fragment>
 
     <fragment
