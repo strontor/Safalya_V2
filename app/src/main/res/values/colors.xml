@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#2E7D32</color>
+    <color name="primary">#2E7D32</color>        <!-- muted green -->
     <color name="secondary">#81C784</color>
-    <color name="background">#F5FFF6</color>
+    <color name="background">#F4FFF6</color>    <!-- soft off-white -->
+    <color name="surface">#FFFFFF</color>       <!-- card surfaces -->
     <color name="text_primary">#1B1B1B</color>
     <color name="text_secondary">#5F5F5F</color>
     <color name="white">#FFFFFFFF</color>
