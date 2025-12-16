@@ -19,6 +19,7 @@ class ListingsAdapter(
 
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         holder.bind(getItem(position))
+
     }
 
     inner class ListingViewHolder(
@@ -26,9 +27,10 @@ class ListingsAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(listing: Listing) {
-            binding.cropType.text = listing.cropType
-            binding.quantity.text = listing.quantity
-            binding.price.text = listing.price
+
+            binding.cropType.text = listing.cropType.replaceFirstChar { it.uppercase() }
+            binding.quantity.text = "${listing.quantity} kg" // with unit
+            binding.price.text = "₹${listing.price}" //with rupee symbol
             binding.root.setOnClickListener { onItemClick(listing) }
         }
     }
