@@ -60,6 +60,14 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:visibility="gone" />
 
+        <ProgressBar
+            android:id="@+id/loginProgress"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/register_link"
             style="@style/Widget.MaterialComponents.Button.TextButton"

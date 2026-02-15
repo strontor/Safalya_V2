@@ -20,8 +20,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.ViewGroup
-
-
+import com.beta.safalya_v2.R.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -88,8 +87,15 @@ class MainActivity : AppCompatActivity() {
 
 
 
-                        graph.setStartDestination(R.id.homeFragment)
+                        val startGraph = when (role) {
+                            "farmer" -> R.id.farmer_graph
+                            "buyer"  -> R.id.buyer_graph
+                            else     -> R.id.fallbackFragment
+                        }
+
+                        graph.setStartDestination(startGraph)
                         navController.graph = graph
+
 
 
                         // Now set up bottom nav AFTER graph is set

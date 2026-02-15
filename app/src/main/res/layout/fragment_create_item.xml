@@ -11,7 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:navigationIcon="@drawable/ic_back"
-        android:title="@string/title_create_listing" />
+        android:title="@string/title_create_listing"/>
+    <TextView
+        android:id="@+id/tvGreeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create New Listing:"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

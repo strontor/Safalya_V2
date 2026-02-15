@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.beta.safalya_v2.databinding.FragmentCreateListingBinding
+import com.beta.safalya_v2.databinding.FragmentCreateItemBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateListingFragment : Fragment() {
+class CreateOrderFragment : Fragment() {
 
-    private var _binding: FragmentCreateListingBinding? = null
+    private var _binding: FragmentCreateItemBinding? = null
     private val binding get() = _binding!!
     private val vm: ListingsViewModel by viewModels()
     private var selectedDeliveryDate: Long? = null
@@ -24,7 +24,7 @@ class CreateListingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCreateListingBinding.inflate(inflater, container, false)
+        _binding = FragmentCreateItemBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -64,16 +64,18 @@ class CreateListingFragment : Fragment() {
             }
 
             vm.createListing(
-                crop,
-                qty,
-                price,
-                selectedDeliveryDate!!, // Use the stored date
-                desc
+                cropType = crop,
+                quantity = qty,
+                price = price,
+                deliveryDate = selectedDeliveryDate!!,
+                description = desc,
+                itemType = "BUY"
             ) {
-                Toast.makeText(requireContext(), "Listing created!", Toast.LENGTH_SHORT).show()
-                // Safely go back to the previous screen
+                Toast.makeText(requireContext(), "Order created!", Toast.LENGTH_LONG).show()
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
+
+
         }
 
         binding.cancelButton.setOnClickListener {

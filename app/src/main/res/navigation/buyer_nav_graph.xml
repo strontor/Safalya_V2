@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/buyer_nav_graph"
+app:startDestination="@id/buyerHomeFragment">
+
+<!-- Buyer Home -->
+<fragment
+    android:id="@+id/buyerHomeFragment"
+    android:name="com.beta.safalya_v2.ui.home.BuyerHomeFragment"
+    android:label="Home">
+
+    <action
+        android:id="@+id/action_buyerHome_to_browseListings"
+        app:destination="@id/browseListingsFragment" />
+    <action
+        android:id="@+id/action_buyerHomeFragment_to_itemDetailsFragment"
+        app:destination="@id/itemDetailsFragment" />
+</fragment>
+
+<!-- Browse Listings -->
+<fragment
+    android:id="@+id/browseListingsFragment"
+    android:name="com.beta.safalya_v2.ui.home.BrowseListingsFragment"
+    android:label="Browse Listings">
+
+    <action
+        android:id="@+id/action_browseListings_to_itemDetails"
+        app:destination="@id/itemDetailsFragment" />
+    <action
+        android:id="@+id/action_browseListingsFragment_to_createItemFragment"
+        app:destination="@id/createItemFragment" />
+</fragment>
+
+    <!-- Buyer Orders -->
+
+
+    <!-- Listing Details -->
+<fragment
+    android:id="@+id/itemDetailsFragment"
+    android:name="com.beta.safalya_v2.ui.home.ItemDetailsFragment"
+    android:label="Listing Details" />
+
+<!-- Profile -->
+<fragment
+    android:id="@+id/profileFragment"
+    android:name="com.beta.safalya_v2.ui.profile.ProfileFragment"
+    android:label="Profile" />
+    <fragment
+        android:id="@+id/createItemFragment"
+        android:name="com.beta.safalya_v2.ui.home.CreateItemFragment"
+        android:label="CreateItemFragment" />
+
+</navigation>

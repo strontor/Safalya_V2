@@ -15,7 +15,7 @@
     <string name="label_delivery_date">Delivery Date</string>
     <string name="label_description">Description</string>
     <string name="label_contract_id">Contract</string>
-    <string name="label_listing_id">Listing</string>
+    <string name="label_item_id">Item</string>
     <string name="label_status">Status</string>
     <string name="label_role">Role</string>
     <string name="action_login">Login</string>
@@ -32,8 +32,10 @@
     <string name="title_contracts">Contracts</string>
     <string name="title_profile">Profile</string>
     <string name="title_create_listing">New Listing</string>
+    <string name="title_create_item">New Item</string>
     <string name="title_browse_listings">Listings</string>
     <string name="title_listing_details">Listing Details</string>
+    <string name="title_item_details">Item Details</string>
     <string name="link_register">Need an account? Register</string>
     <string name="link_login">Already have an account? Login</string>
     <string name="home_welcome">Hello, %1$s</string>

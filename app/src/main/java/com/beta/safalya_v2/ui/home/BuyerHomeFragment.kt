@@ -33,30 +33,57 @@ class BuyerHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecycler()
-        observeListings()
+        setupActions()
+        observeActiveListings()
 
-        vm.loadActiveListings()
+        vm.loadMySellListings()
     }
 
     private fun setupRecycler() {
         adapter = ListingsAdapter { listing ->
 
-            val bundle = Bundle()
-            bundle.putString("listingId", listing.id)
+            val bundle = Bundle().apply {
+                putString("itemId", listing.id)
+
+                // ownership + role resolution
+                putString("farmerId", listing.farmerId)
+
+                // critical: BUY / SELL routing
+                putString("itemType", listing.itemType)
+
+                // UI data (read-only)
+                putString("crop", listing.cropType)
+                putString("qty", listing.quantity)
+                putString("price", listing.price)
+                putString("date", listing.deliveryDate)
+                putString("desc", listing.description)
+            }
 
             findNavController().navigate(
-                R.id.listingDetailsFragment,
+                R.id.itemDetailsFragment,
                 bundle
             )
         }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
+
         binding.recyclerView.adapter = adapter
     }
 
-    private fun observeListings() {
+
+    private fun setupActions() {
+        binding.cardMyOrders.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_buyerHome_to_browseListings
+            )
+
+        }
+    }
+
+    private fun observeActiveListings() {
         vm.activeListings.observe(viewLifecycleOwner) { listings ->
-            adapter.submitList(listings)
+            adapter.submitList(listings.take(3)) //  preview only
         }
     }
 

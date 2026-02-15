@@ -33,30 +33,59 @@ class FarmerHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecycler()
-        observeListings()
+        setupActions()
+        observeOrders()
+        // TEMP: reuse active listings until Orders VM exists
+        vm.loadBuyOrders()
 
-        vm.loadMyListings()
-
-        binding.btnCreateListing.setOnClickListener {
-            findNavController().navigate(R.id.createListingFragment)
-        }
     }
 
     private fun setupRecycler() {
         adapter = ListingsAdapter { listing ->
+
             val bundle = Bundle().apply {
-                putString("listingId", listing.id)
+                putString("itemId", listing.id)
+
+                // ownership
+                putString("farmerId", listing.farmerId)
+
+                // SELL listing (farmer-created)
+                putString("itemType", listing.itemType)
+
+                // UI fields
+                putString("crop", listing.cropType)
+                putString("qty", listing.quantity)
+                putString("price", listing.price)
+                putString("date", listing.deliveryDate)
+                putString("desc", listing.description)
             }
-            findNavController().navigate(R.id.listingDetailsFragment, bundle)
+
+            findNavController().navigate(
+                R.id.itemDetailsFragment,
+                bundle
+            )
         }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
+
         binding.recyclerView.adapter = adapter
     }
 
-    private fun observeListings() {
-        vm.myListings.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
+
+    private fun setupActions() {
+        binding.btnViewMoreOrders.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_farmerHome_to_browseListings
+            )
+        }
+    }
+
+    private fun observeOrders() {
+        vm.activeListings.observe(viewLifecycleOwner) { listings ->
+            adapter.submitList(listings.take(3)) // preview
         }
     }
 

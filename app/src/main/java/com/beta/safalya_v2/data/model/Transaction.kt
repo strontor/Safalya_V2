@@ -9,4 +9,3 @@ data class Transaction(
     val type: String = "income",
     val createdAt: Long = System.currentTimeMillis()
 )
-//simple comment to track github changes

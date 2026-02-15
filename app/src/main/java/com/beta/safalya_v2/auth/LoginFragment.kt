@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.beta.safalya_v2.MainActivity
 import com.beta.safalya_v2.R
 import com.beta.safalya_v2.databinding.FragmentLoginBinding
-import com.beta.safalya_v2.util.UiState
+
 import com.beta.safalya_v2.util.launchActivity
 import com.beta.safalya_v2.util.setVisible
 import com.beta.safalya_v2.util.showToast
@@ -36,6 +36,9 @@ class LoginFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
+
         super.onViewCreated(view, savedInstanceState)
         binding.registerLink.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -49,9 +52,12 @@ class LoginFragment : Fragment() {
         val password = binding.passwordInput.text.toString().trim()
 
         if (email.isEmpty() || password.isEmpty()) {
-            showToast(getString(R.string.error_credentials_required))
+            showToast("Incorrect email or password")
             return
         }
+        binding.loginButton.isEnabled = false
+        binding.loginProgress.setVisible(true)
+
 
         viewModel.login(email, password) {
             // called when login + role successfully loaded

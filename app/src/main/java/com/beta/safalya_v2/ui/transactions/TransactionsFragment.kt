@@ -1,47 +1,80 @@
 package com.beta.safalya_v2.ui.transactions
-
+import androidx.navigation.fragment.findNavController
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beta.safalya_v2.databinding.FragmentTransactionsBinding
-import com.beta.safalya_v2.main.MainSharedViewModel
-import com.beta.safalya_v2.util.UiState
+import com.beta.safalya_v2.ui.home.ListingsViewModel
+import com.beta.safalya_v2.ui.adapters.ListingsAdapter
+import com.beta.safalya_v2.R
+
 
 
 class TransactionsFragment : Fragment() {
 
     private lateinit var binding: FragmentTransactionsBinding
-    private val vm: TransactionsViewModel by viewModels()
-    private val mainVM: MainSharedViewModel by activityViewModels()
+    private val listingsViewModel: ListingsViewModel by viewModels()
+    private lateinit var adapter: ListingsAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentTransactionsBinding.inflate(inflater, container, false)
+    private var userRole: String = "BUYER" // inject later from shared VM
 
-        mainVM.userState.value?.let { state ->
-            if (state is UiState.Success) {
-                val user = state.data
-                val isFarmer = user.role == "farmer"
-                vm.loadTransactions(isFarmer)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        setupRecycler()
+        setupHeader()
+        setupActions()
+        loadData()
+    }
+
+    private fun setupRecycler() {
+        adapter = ListingsAdapter { item ->
+            val bundle = Bundle().apply {
+                putString("itemId", item.id)
             }
+            findNavController().navigate(
+                R.id.itemDetailsFragment,
+                bundle
+            )
         }
 
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
+    }
 
-        vm.transactions.observe(viewLifecycleOwner) { list ->
-            binding.recyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = TransactionsAdapter(list)
+    private fun setupHeader() {
+        if (userRole == "BUYER") {
+            binding.tvTitle.text = "My Orders"
+            binding.cardCreateOrder.visibility = View.VISIBLE
+        } else {
+            binding.tvTitle.text = "Browse Orders"
+            binding.cardCreateOrder.visibility = View.GONE
+        }
+    }
+
+    private fun setupActions() {
+        binding.cardCreateOrder.setOnClickListener {
+            findNavController().navigate(
+                R.id.createItemFragment // later
+            )
+        }
+    }
+
+    private fun loadData() {
+        if (userRole == "BUYER") {
+            // buyer sees their BUY orders
+            listingsViewModel.loadBuyOrders()
+            listingsViewModel.activeListings.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
+        } else {
+            // farmer sees BUY orders placed by buyers
+            listingsViewModel.loadMySellListings()
+            listingsViewModel.myListings.observe(viewLifecycleOwner) {
+                adapter.submitList(it)
             }
         }
-
-        return binding.root
     }
 }

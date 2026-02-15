@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/farmer_nav_graph"
+    app:startDestination="@id/farmerHomeFragment">
+
+    <!-- Farmer Home -->
+    <fragment
+        android:id="@+id/farmerHomeFragment"
+        android:name="com.beta.safalya_v2.ui.home.FarmerHomeFragment"
+        android:label="Farmer Home">
+
+        <!-- View More / My Listings -->
+        <action
+            android:id="@+id/action_farmerHome_to_browseListings"
+            app:destination="@id/browseListingsFragment" />
+    </fragment>
+
+    <!-- Browse Listings (My Listings / Orders preview) -->
+    <fragment
+        android:id="@+id/browseListingsFragment"
+        android:name="com.beta.safalya_v2.ui.home.BrowseListingsFragment"
+        android:label="Browse Listings">
+
+        <action
+            android:id="@+id/action_browseListings_to_createItem"
+            app:destination="@id/createItemFragment"  />
+
+        <action
+            android:id="@+id/action_browseListings_to_itemDetails"
+            app:destination="@id/itemDetailsFragment" />
+    </fragment>
+
+    <!-- Create Listing -->
+    <fragment
+        android:id="@+id/createItemFragment"
+        android:name="com.beta.safalya_v2.ui.home.CreateItemFragment"
+        android:label="Create Listing" />
+
+    <!-- Item Details -->
+    <fragment
+        android:id="@+id/itemDetailsFragment"
+        android:name="com.beta.safalya_v2.ui.home.ItemDetailsFragment"
+        android:label="Item Details">
+
+        <action
+            android:id="@+id/action_itemDetails_to_interestedBuyers"
+            app:destination="@id/interestedBuyersFragment" />
+    </fragment>
+
+    <!-- Interested Buyers -->
+    <fragment
+        android:id="@+id/interestedBuyersFragment"
+        android:name="com.beta.safalya_v2.ui.home.InterestedBuyersFragment"
+        android:label="Interested Buyers" />
+
+</navigation>

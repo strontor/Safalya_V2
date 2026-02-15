@@ -30,7 +30,7 @@ class ContractsAdapter(
         fun bind(contract: Contract) {
             binding.contractId.text = contract.id
             binding.status.text = contract.status.uppercase()
-            binding.listingId.text = contract.listingId
+            binding.itemId.text = contract.itemId
             binding.actionGroup.isVisible = isFarmer && contract.status == "pending"
             binding.acceptButton.setOnClickListener { onAction(contract, ContractAction.ACCEPT) }
             binding.rejectButton.setOnClickListener { onAction(contract, ContractAction.REJECT) }

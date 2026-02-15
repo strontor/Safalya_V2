@@ -12,6 +12,15 @@
         android:layout_height="wrap_content"
         android:navigationIcon="@drawable/ic_back"
         android:title="@string/title_listing_details" />
+    <TextView
+        android:id="@+id/tvGreeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Listing Details:"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,5 +106,31 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRequestContract"
+        style="?attr/materialButtonOutlinedStyle"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Request Contract" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnViewInterestedBuyers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Interested Buyers"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Waiting for farmer response"
+        android:visibility="gone"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/text_secondary"/>
 </LinearLayout>
 

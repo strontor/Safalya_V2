@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.beta.safalya_v2.data.model.Listing
+import com.beta.safalya_v2.data.model.Item
 import com.beta.safalya_v2.databinding.ItemListingBinding
 
 class ListingsAdapter(
-    private val onItemClick: (Listing) -> Unit
-) : ListAdapter<Listing, ListingsAdapter.ListingViewHolder>(Diff) {
+    private val onItemClick: (Item) -> Unit
+) : ListAdapter<Item, ListingsAdapter.ListingViewHolder>(Diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
         val binding = ItemListingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,19 +25,19 @@ class ListingsAdapter(
         private val binding: ItemListingBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(listing: Listing) {
-            binding.cropType.text = listing.cropType
-            binding.quantity.text = listing.quantity
-            binding.price.text = listing.price
+        fun bind(listing: Item) {
+            binding.tvCrop.text = listing.cropType
+            binding.tvQuantity.text = listing.quantity
+            binding.tvPrice.text = listing.price
             binding.root.setOnClickListener { onItemClick(listing) }
         }
     }
 
-    private object Diff : DiffUtil.ItemCallback<Listing>() {
-        override fun areItemsTheSame(oldItem: Listing, newItem: Listing): Boolean =
+    private object Diff : DiffUtil.ItemCallback<Item>() {
+        override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Listing, newItem: Listing): Boolean =
+        override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean =
             oldItem == newItem
     }
 }

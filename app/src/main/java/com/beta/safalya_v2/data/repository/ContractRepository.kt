@@ -27,7 +27,7 @@ class ContractsRepository {
                 val contracts = snap.documents.map { doc ->
                     Contract(
                         id = doc.id,
-                        listingId = doc.getString("listingId") ?: "",
+                        itemId = doc.getString("itemId") ?: "",
                         farmerId = doc.getString("farmerId") ?: "",
                         buyerId = doc.getString("buyerId") ?: "",
                         status = doc.getString("status") ?: "pending",
