@@ -2,7 +2,7 @@
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/farmer_nav_graph"
+    android:id="@+id/farmer_graph"
     app:startDestination="@id/farmerHomeFragment">
 
     <!-- Farmer Home -->
@@ -11,13 +11,12 @@
         android:name="com.beta.safalya_v2.ui.home.FarmerHomeFragment"
         android:label="Farmer Home">
 
-        <!-- View More / My Listings -->
         <action
             android:id="@+id/action_farmerHome_to_browseListings"
             app:destination="@id/browseListingsFragment" />
     </fragment>
 
-    <!-- Browse Listings (My Listings / Orders preview) -->
+    <!-- Browse Listings (Orders visible to farmer) -->
     <fragment
         android:id="@+id/browseListingsFragment"
         android:name="com.beta.safalya_v2.ui.home.BrowseListingsFragment"
@@ -25,7 +24,7 @@
 
         <action
             android:id="@+id/action_browseListings_to_createItem"
-            app:destination="@id/createItemFragment"  />
+            app:destination="@id/createItemFragment" />
 
         <action
             android:id="@+id/action_browseListings_to_itemDetails"

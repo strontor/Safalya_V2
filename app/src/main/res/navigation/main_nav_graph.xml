@@ -1,4 +1,5 @@
-<navigation android:id="@+id/main_nav_graph"
+<navigation
+    android:id="@+id/main_nav_graph"
     app:startDestination="@id/fallbackFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -8,24 +9,14 @@
         android:name="com.beta.safalya_v2.ui.EmptyFragment"
         android:label="Loading" />
 
-    <!-- Buyer flow -->
-    <navigation
-        android:id="@+id/buyer_graph"
-        app:startDestination="@id/buyerHomeFragment">
-
-        <fragment
-            android:id="@+id/buyerHomeFragment"
-            android:name="com.beta.safalya_v2.ui.home.BuyerHomeFragment" />
-    </navigation>
-
-    <!-- Farmer flow -->
-    <navigation
+    <!-- Include full farmer flow -->
+    <include
         android:id="@+id/farmer_graph"
-        app:startDestination="@id/farmerHomeFragment">
+        app:graph="@navigation/farmer_nav_graph" />
 
-        <fragment
-            android:id="@+id/farmerHomeFragment"
-            android:name="com.beta.safalya_v2.ui.home.FarmerHomeFragment" />
-    </navigation>
+    <!-- Include full buyer flow -->
+    <include
+        android:id="@+id/buyer_graph"
+        app:graph="@navigation/buyer_nav_graph" />
 
 </navigation>
