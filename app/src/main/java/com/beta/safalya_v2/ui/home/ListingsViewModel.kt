@@ -109,7 +109,8 @@ class ListingsViewModel : ViewModel() {
 
     fun loadMySellListings() { //for farmers
         loading.value = true
-        repo.loadActiveSellListings(
+        repo.loadMyListingsByType(
+            itemType = "SELL",
             onSuccess = { result ->
                 myListings.postValue(result)
                 loading.value = false
@@ -122,7 +123,8 @@ class ListingsViewModel : ViewModel() {
     }
     fun loadMyBuyOrders() {  //for buyers
         loading.value = true
-        repo.loadActiveBuyOrders(
+        repo.loadMyListingsByType(
+            itemType = "BUY",
             onSuccess = { result ->
                 myListings.postValue(result)
                 loading.value = false

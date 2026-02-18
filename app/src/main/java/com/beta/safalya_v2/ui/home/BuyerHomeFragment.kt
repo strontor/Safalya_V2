@@ -36,7 +36,7 @@ class BuyerHomeFragment : Fragment() {
         setupActions()
         observeActiveListings()
 
-        vm.loadMySellListings()
+        vm.loadSellListings()
     }
 
     private fun setupRecycler() {
@@ -75,9 +75,16 @@ class BuyerHomeFragment : Fragment() {
     private fun setupActions() {
         binding.cardMyOrders.setOnClickListener {
             findNavController().navigate(
-                R.id.action_buyerHome_to_browseListings
+                R.id.action_buyerHome_to_browseListings,
+                Bundle().apply { putString("screen_mode", "my_orders") }
             )
+        }
 
+        binding.btnViewMoreOrders.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_buyerHome_to_browseListings,
+                Bundle().apply { putString("screen_mode", "my_orders") }
+            )
         }
     }
 

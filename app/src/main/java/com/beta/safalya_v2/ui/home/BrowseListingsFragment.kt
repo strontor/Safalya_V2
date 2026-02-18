@@ -25,6 +25,7 @@ class BrowseListingsFragment : Fragment() {
     private lateinit var adapter: ListingsAdapter
 
     private var userRole: String = "buyer"
+    private var screenMode: String = "default"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +40,7 @@ class BrowseListingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userRole = resolveRole()
+        screenMode = arguments?.getString("screen_mode") ?: "default"
 
         setupHeader()
         setupRecycler()
@@ -60,7 +62,10 @@ class BrowseListingsFragment : Fragment() {
     }
 
     private fun setupHeader() {
-        if (userRole == "buyer") {
+        if (screenMode == "my_orders" && userRole == "buyer") {
+            binding.tvTitle.text = "My Orders"
+            binding.tvSubtitle.text = "Orders you created"
+        } else if (userRole == "buyer") {
             binding.tvTitle.text = "Browse Listings"
             binding.tvSubtitle.text = "Available farmer listings"
         } else {
@@ -109,7 +114,9 @@ class BrowseListingsFragment : Fragment() {
     private fun loadData() {
         binding.progressBar.visibility = View.VISIBLE
 
-        if (userRole == "buyer") {
+        if (screenMode == "my_orders" && userRole == "buyer") {
+            viewModel.loadMyBuyOrders()
+        } else if (userRole == "buyer") {
             viewModel.loadSellListings()
         } else {
             viewModel.loadBuyOrders()
@@ -117,10 +124,15 @@ class BrowseListingsFragment : Fragment() {
     }
 
     private fun observeListings() {
-        viewModel.activeListings.observe(viewLifecycleOwner) { list ->
+        val observer: (List<com.beta.safalya_v2.data.model.Item>) -> Unit = { list ->
             binding.progressBar.visibility = View.GONE
             binding.emptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
             adapter.submitList(list)
+        }
+        if (screenMode == "my_orders" && userRole == "buyer") {
+            viewModel.myListings.observe(viewLifecycleOwner, observer)
+        } else {
+            viewModel.activeListings.observe(viewLifecycleOwner, observer)
         }
     }
 

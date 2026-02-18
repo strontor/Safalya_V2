@@ -102,6 +102,37 @@ class ListingRepository {
             .addOnFailureListener { onFailure(it.message ?: "Failed to load buy orders") }
     }
 
+    fun loadMyListingsByType(
+        itemType: String,
+        onSuccess: (List<Item>) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val uid = auth.currentUser?.uid ?: return onFailure("User not logged in")
+
+        db.collection("listings")
+            .whereEqualTo("farmerId", uid)
+            .whereEqualTo("status", "active")
+            .whereEqualTo("itemType", itemType)
+            .get()
+            .addOnSuccessListener { snap ->
+                val list = snap.documents.map { doc ->
+                    Item(
+                        id = doc.id,
+                        farmerId = doc.getString("farmerId") ?: "",
+                        cropType = doc.getString("cropType") ?: "",
+                        quantity = doc.getString("quantity") ?: "",
+                        price = doc.getString("price") ?: "",
+                        deliveryDate = doc.getString("deliveryDate") ?: "",
+                        description = doc.getString("description") ?: "",
+                        status = doc.getString("status") ?: "active",
+                        itemType = doc.getString("itemType") ?: ""
+                    )
+                }
+                onSuccess(list)
+            }
+            .addOnFailureListener { onFailure(it.message ?: "Failed to load your listings") }
+    }
+
     // -----------------------
 // REQUEST CONTRACT
 // -----------------------
