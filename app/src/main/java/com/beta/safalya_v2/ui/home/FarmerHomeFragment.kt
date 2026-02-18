@@ -78,7 +78,8 @@ class FarmerHomeFragment : Fragment() {
     private fun setupActions() {
         binding.cardMyListings.setOnClickListener {
             findNavController().navigate(
-                R.id.action_farmerHome_to_browseListings
+                R.id.action_farmerHome_to_browseListings,
+                Bundle().apply { putString("screen_mode", "my_listings") }
             )
         }
 

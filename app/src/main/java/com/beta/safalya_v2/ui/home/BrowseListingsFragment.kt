@@ -65,6 +65,9 @@ class BrowseListingsFragment : Fragment() {
         if (screenMode == "my_orders" && userRole == "buyer") {
             binding.tvTitle.text = "My Orders"
             binding.tvSubtitle.text = "Orders you created"
+        } else if (screenMode == "my_listings" && userRole == "farmer") {
+            binding.tvTitle.text = "My Listings"
+            binding.tvSubtitle.text = "Listings you created"
         } else if (userRole == "buyer") {
             binding.tvTitle.text = "Browse Listings"
             binding.tvSubtitle.text = "Available farmer listings"
@@ -75,6 +78,18 @@ class BrowseListingsFragment : Fragment() {
     }
 
     private fun setupCreateAction() {
+        if (screenMode == "my_listings" && userRole == "farmer") {
+            binding.cardCreate.visibility = View.VISIBLE
+            binding.tvCreateAction.text = "Create Sell Listing"
+            binding.cardCreate.setOnClickListener {
+                findNavController().navigate(
+                    R.id.createItemFragment,
+                    Bundle().apply { putString("itemType", "SELL") }
+                )
+            }
+            return
+        }
+
         if (userRole == "farmer") {
             binding.cardCreate.visibility = View.GONE
             return
@@ -116,6 +131,8 @@ class BrowseListingsFragment : Fragment() {
 
         if (screenMode == "my_orders" && userRole == "buyer") {
             viewModel.loadMyBuyOrders()
+        } else if (screenMode == "my_listings" && userRole == "farmer") {
+            viewModel.loadMySellListings()
         } else if (userRole == "buyer") {
             viewModel.loadSellListings()
         } else {
@@ -129,7 +146,10 @@ class BrowseListingsFragment : Fragment() {
             binding.emptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
             adapter.submitList(list)
         }
-        if (screenMode == "my_orders" && userRole == "buyer") {
+        if (
+            (screenMode == "my_orders" && userRole == "buyer") ||
+            (screenMode == "my_listings" && userRole == "farmer")
+        ) {
             viewModel.myListings.observe(viewLifecycleOwner, observer)
         } else {
             viewModel.activeListings.observe(viewLifecycleOwner, observer)
