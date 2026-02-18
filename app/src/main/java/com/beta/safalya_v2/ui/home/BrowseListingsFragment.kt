@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beta.safalya_v2.R
 import com.beta.safalya_v2.databinding.FragmentBrowseListingsBinding
+import com.beta.safalya_v2.main.MainSharedViewModel
 import com.beta.safalya_v2.ui.adapters.ListingsAdapter
-import com.google.firebase.auth.FirebaseAuth
-
+import com.beta.safalya_v2.util.UiState
 
 class BrowseListingsFragment : Fragment() {
 
@@ -20,10 +21,10 @@ class BrowseListingsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ListingsViewModel by viewModels()
+    private val sharedViewModel: MainSharedViewModel by activityViewModels()
     private lateinit var adapter: ListingsAdapter
 
-    // CONFIGURABLE: role passed via navigation
-    private lateinit var userRole: String // "BUYER" or "FARMER"
+    private var userRole: String = "buyer"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,20 +38,29 @@ class BrowseListingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userRole = arguments?.getString("role") ?: "BUYER"
+        userRole = resolveRole()
 
         setupHeader()
         setupRecycler()
         observeListings()
         loadData()
         setupCreateAction()
-
     }
 
-    // ---------------- UI SETUP ----------------
+    private fun resolveRole(): String {
+        val roleFromArgs = arguments?.getString("role")?.lowercase()
+        if (roleFromArgs == "farmer" || roleFromArgs == "buyer") return roleFromArgs
+
+        val roleFromShared = (sharedViewModel.userState.value as? UiState.Success)
+            ?.data
+            ?.role
+            ?.lowercase()
+
+        return if (roleFromShared == "farmer") "farmer" else "buyer"
+    }
 
     private fun setupHeader() {
-        if (userRole == "BUYER") {
+        if (userRole == "buyer") {
             binding.tvTitle.text = "Browse Listings"
             binding.tvSubtitle.text = "Available farmer listings"
         } else {
@@ -60,32 +70,21 @@ class BrowseListingsFragment : Fragment() {
     }
 
     private fun setupCreateAction() {
-
-        // TEMP role check — later replace with shared VM
-        val isFarmer = arguments?.getString("role") == "farmer"
-
-        if (isFarmer) {
-            binding.tvCreateAction.text = "Create Sell Listing"
-        } else {
-            binding.tvCreateAction.text = "Create Buy Order"
+        if (userRole == "farmer") {
+            binding.cardCreate.visibility = View.GONE
+            return
         }
 
+        binding.cardCreate.visibility = View.VISIBLE
+        binding.tvCreateAction.text = "Create Buy Order"
+
         binding.cardCreate.setOnClickListener {
-
-            val bundle = Bundle().apply {
-                putString(
-                    "itemType",
-                    if (isFarmer) "SELL" else "BUY"
-                )
-            }
-
             findNavController().navigate(
                 R.id.createItemFragment,
-                bundle
+                Bundle().apply { putString("itemType", "BUY") }
             )
         }
     }
-
 
     private fun setupRecycler() {
         adapter = ListingsAdapter { item ->
@@ -93,8 +92,6 @@ class BrowseListingsFragment : Fragment() {
                 putString("itemId", item.id)
                 putString("farmerId", item.farmerId)
                 putString("itemType", item.itemType)
-
-                // UI fields (optional but recommended)
                 putString("crop", item.cropType)
                 putString("qty", item.quantity)
                 putString("price", item.price)
@@ -102,40 +99,27 @@ class BrowseListingsFragment : Fragment() {
                 putString("desc", item.description)
             }
 
-            findNavController().navigate(
-                R.id.browseListingsFragment,
-                Bundle().apply {
-                    putString("role", "BUYER") // or "FARMER"
-                }
-            )
-
+            findNavController().navigate(R.id.itemDetailsFragment, bundle)
         }
 
-        binding.recyclerView.layoutManager =
-            LinearLayoutManager(requireContext())
-
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
-
-    // ---------------- DATA ----------------
 
     private fun loadData() {
         binding.progressBar.visibility = View.VISIBLE
 
-        if (userRole == "BUYER") {
-            viewModel.loadSellListings() // BUYER sees SELL listings
+        if (userRole == "buyer") {
+            viewModel.loadSellListings()
         } else {
-            viewModel.loadBuyOrders()   // FARMER sees BUY orders
+            viewModel.loadBuyOrders()
         }
     }
 
     private fun observeListings() {
         viewModel.activeListings.observe(viewLifecycleOwner) { list ->
             binding.progressBar.visibility = View.GONE
-
-            binding.emptyState.visibility =
-                if (list.isEmpty()) View.VISIBLE else View.GONE
-
+            binding.emptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
             adapter.submitList(list)
         }
     }

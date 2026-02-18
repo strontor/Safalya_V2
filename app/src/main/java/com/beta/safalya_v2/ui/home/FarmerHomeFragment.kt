@@ -76,6 +76,12 @@ class FarmerHomeFragment : Fragment() {
 
 
     private fun setupActions() {
+        binding.cardMyListings.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_farmerHome_to_browseListings
+            )
+        }
+
         binding.btnViewMoreOrders.setOnClickListener {
             findNavController().navigate(
                 R.id.action_farmerHome_to_browseListings

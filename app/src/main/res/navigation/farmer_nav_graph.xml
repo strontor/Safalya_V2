@@ -31,6 +31,16 @@
             app:destination="@id/itemDetailsFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/contractsFragment"
+        android:name="com.beta.safalya_v2.ui.contracts.ContractsFragment"
+        android:label="Contracts" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.beta.safalya_v2.ui.profile.ProfileFragment"
+        android:label="Profile" />
+
     <!-- Create Listing -->
     <fragment
         android:id="@+id/createItemFragment"

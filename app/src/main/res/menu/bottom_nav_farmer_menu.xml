@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/buyerHomeFragment"
+        android:id="@+id/farmerHomeFragment"
         android:icon="@drawable/ic_home"
         android:title="@string/nav_home" />
     <item
@@ -13,4 +13,3 @@
         android:icon="@drawable/ic_profile"
         android:title="@string/nav_profile" />
 </menu>
-

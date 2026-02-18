@@ -20,7 +20,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.ViewGroup
-import com.beta.safalya_v2.R.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -96,9 +95,13 @@ class MainActivity : AppCompatActivity() {
                         graph.setStartDestination(startGraph)
                         navController.graph = graph
 
+                        binding.bottomNav.menu.clear()
+                        val menuRes = when (role) {
+                            "farmer" -> R.menu.bottom_nav_farmer_menu
+                            else -> R.menu.bottom_nav_buyer_menu
+                        }
+                        binding.bottomNav.inflateMenu(menuRes)
 
-
-                        // Now set up bottom nav AFTER graph is set
                         binding.bottomNav.setupWithNavController(navController)
                     }
                 }
