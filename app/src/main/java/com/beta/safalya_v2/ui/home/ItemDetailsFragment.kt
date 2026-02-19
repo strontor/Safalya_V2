@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.beta.safalya_v2.R
-import com.beta.safalya_v2.databinding.FragmentItemDetailsBinding
 import com.beta.safalya_v2.data.model.ContractState
+import com.beta.safalya_v2.databinding.FragmentItemDetailsBinding
+import com.beta.safalya_v2.util.toFormattedDate
 import com.google.firebase.auth.FirebaseAuth
 
 class ItemDetailsFragment : Fragment() {
@@ -56,7 +57,8 @@ class ItemDetailsFragment : Fragment() {
         binding.cropValue.text = arguments?.getString("crop")
         binding.quantityValue.text = arguments?.getString("qty")
         binding.priceValue.text = arguments?.getString("price")
-        binding.dateValue.text = arguments?.getString("date")
+        val rawDate = arguments?.getString("date").orEmpty()
+        binding.dateValue.text = rawDate.toLongOrNull()?.toFormattedDate() ?: rawDate
         binding.descriptionValue.text = arguments?.getString("desc")
     }
 
