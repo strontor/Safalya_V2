@@ -2,15 +2,19 @@ package com.beta.safalya_v2.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.beta.safalya_v2.R
 import com.beta.safalya_v2.data.model.Item
 import com.beta.safalya_v2.databinding.ItemListingBinding
+import com.google.android.material.card.MaterialCardView
 import com.beta.safalya_v2.util.toFormattedDate
 import com.beta.safalya_v2.util.toRupeeFormat
 
 class ListingsAdapter(
+    private val useBuyerScheme: Boolean = false,
     private val onItemClick: (Item) -> Unit
 ) : ListAdapter<Item, ListingsAdapter.ListingViewHolder>(Diff) {
 
@@ -28,6 +32,7 @@ class ListingsAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(listing: Item) {
+            val context = binding.root.context
             binding.tvCrop.text = listing.cropType
             val formattedDeliveryDate = listing.deliveryDate
                 .toLongOrNull()
@@ -37,6 +42,11 @@ class ListingsAdapter(
             binding.tvPrice.text = listing.price.toLongOrNull()?.toRupeeFormat()
                 ?: listing.price.toDoubleOrNull()?.toRupeeFormat()
                 ?: listing.price
+            if (useBuyerScheme) {
+                binding.tvPrice.setTextColor(ContextCompat.getColor(context, R.color.buyer_primary))
+                (binding.root as? MaterialCardView)?.strokeColor =
+                    ContextCompat.getColor(context, R.color.buyer_stroke)
+            }
             binding.root.setOnClickListener { onItemClick(listing) }
         }
     }
