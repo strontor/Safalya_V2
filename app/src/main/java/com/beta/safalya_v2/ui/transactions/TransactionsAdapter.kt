@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.beta.safalya_v2.data.model.Transaction
 import com.beta.safalya_v2.databinding.ItemTransactionBinding
+import com.beta.safalya_v2.util.toRupeeFormat
 
 class TransactionsAdapter(private val list: List<Transaction>) :
     RecyclerView.Adapter<TransactionsAdapter.TViewHolder>() {
@@ -21,7 +22,9 @@ class TransactionsAdapter(private val list: List<Transaction>) :
     override fun onBindViewHolder(holder: TViewHolder, position: Int) {
         val tx = list[position]
         holder.binding.txId.text = tx.id
-        holder.binding.txAmount.text = "₹${tx.amount}"
+        holder.binding.txAmount.text = tx.amount.toLongOrNull()?.toRupeeFormat()
+            ?: tx.amount.toDoubleOrNull()?.toRupeeFormat()
+            ?: tx.amount
         holder.binding.txType.text = tx.type
     }
 

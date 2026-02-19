@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beta.safalya_v2.data.model.Item
 import com.beta.safalya_v2.databinding.ItemListingBinding
 import com.beta.safalya_v2.util.toFormattedDate
+import com.beta.safalya_v2.util.toRupeeFormat
 
 class ListingsAdapter(
     private val onItemClick: (Item) -> Unit
@@ -33,7 +34,9 @@ class ListingsAdapter(
                 ?.toFormattedDate()
                 ?: listing.deliveryDate
             binding.tvQuantity.text = "${listing.quantity} | $formattedDeliveryDate"
-            binding.tvPrice.text = listing.price
+            binding.tvPrice.text = listing.price.toLongOrNull()?.toRupeeFormat()
+                ?: listing.price.toDoubleOrNull()?.toRupeeFormat()
+                ?: listing.price
             binding.root.setOnClickListener { onItemClick(listing) }
         }
     }
