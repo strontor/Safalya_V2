@@ -43,9 +43,9 @@ class ListingsAdapter(
                 ?: listing.price.toDoubleOrNull()?.toRupeeFormat()
                 ?: listing.price
             if (useBuyerScheme) {
-                binding.tvPrice.setTextColor(ContextCompat.getColor(context, R.color.buyer_primary))
+                binding.tvPrice.setTextColor(ContextCompat.getColor(context, R.color.primary))
                 (binding.root as? MaterialCardView)?.strokeColor =
-                    ContextCompat.getColor(context, R.color.buyer_stroke)
+                    ContextCompat.getColor(context, R.color.text_secondary)
             }
             binding.root.setOnClickListener { onItemClick(listing) }
         }
