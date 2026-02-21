@@ -36,3 +36,13 @@ fun Number.toRupeeFormat(): String {
     return formatter.format(this)
 }
 
+fun String.toRupeeText(): String {
+    val raw = trim()
+    if (raw.isEmpty()) return raw
+    if (raw.startsWith("₹")) return raw
+
+    return raw.toLongOrNull()?.toRupeeFormat()
+        ?: raw.toDoubleOrNull()?.toRupeeFormat()
+        ?: "₹$raw"
+}
+

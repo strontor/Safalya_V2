@@ -11,7 +11,7 @@ import com.beta.safalya_v2.data.model.Item
 import com.beta.safalya_v2.databinding.ItemListingBinding
 import com.google.android.material.card.MaterialCardView
 import com.beta.safalya_v2.util.toFormattedDate
-import com.beta.safalya_v2.util.toRupeeFormat
+import com.beta.safalya_v2.util.toRupeeText
 
 class ListingsAdapter(
     private val useBuyerScheme: Boolean = false,
@@ -39,9 +39,7 @@ class ListingsAdapter(
                 ?.toFormattedDate()
                 ?: listing.deliveryDate
             binding.tvQuantity.text = "${listing.quantity} | $formattedDeliveryDate"
-            binding.tvPrice.text = listing.price.toLongOrNull()?.toRupeeFormat()
-                ?: listing.price.toDoubleOrNull()?.toRupeeFormat()
-                ?: listing.price
+            binding.tvPrice.text = listing.price.toRupeeText()
             if (useBuyerScheme) {
                 binding.tvPrice.setTextColor(ContextCompat.getColor(context, R.color.primary))
                 (binding.root as? MaterialCardView)?.strokeColor =

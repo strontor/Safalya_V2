@@ -12,7 +12,7 @@ import com.beta.safalya_v2.R
 import com.beta.safalya_v2.data.model.ContractState
 import com.beta.safalya_v2.databinding.FragmentItemDetailsBinding
 import com.beta.safalya_v2.util.toFormattedDate
-import com.beta.safalya_v2.util.toRupeeFormat
+import com.beta.safalya_v2.util.toRupeeText
 import com.google.firebase.auth.FirebaseAuth
 
 class ItemDetailsFragment : Fragment() {
@@ -58,9 +58,7 @@ class ItemDetailsFragment : Fragment() {
         binding.cropValue.text = arguments?.getString("crop")
         binding.quantityValue.text = arguments?.getString("qty")
         val rawPrice = arguments?.getString("price").orEmpty()
-        binding.priceValue.text = rawPrice.toLongOrNull()?.toRupeeFormat()
-            ?: rawPrice.toDoubleOrNull()?.toRupeeFormat()
-            ?: rawPrice
+        binding.priceValue.text = rawPrice.toRupeeText()
         val rawDate = arguments?.getString("date").orEmpty()
         binding.dateValue.text = rawDate.toLongOrNull()?.toFormattedDate() ?: rawDate
         binding.descriptionValue.text = arguments?.getString("desc")
